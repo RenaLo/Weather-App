@@ -33,7 +33,7 @@ function formattedDate(timestamp) {
 
 function formattedTime() {
   let now = new Date();
-  let hours = now.getHours();
+  let hours = ("0" + now.getHours()).substr(-2);
   let minutes = ("0" + now.getMinutes()).substr(-2);
 
   return `${hours}:${minutes}`;
@@ -76,6 +76,7 @@ function displayWeather(response) {
 }
 
 //FORECAST
+let now = new Date();
 let days = [
   "Sunday",
   "Monday",
@@ -85,7 +86,6 @@ let days = [
   "Friday",
   "Saturday",
 ];
-let now = new Date();
 let day = days[now.getDay()];
 
 let otherDay1 = document.querySelector("#otherDays-1");
