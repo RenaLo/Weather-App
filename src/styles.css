@@ -87,16 +87,13 @@ ul {
   right: 20px;
 }
 
-.weather-data {
-  font-size: 15px;
-  padding: 65px 20px 0;
+.description {
+  margin-top: 20px;
 }
 
-.main-emoji {
-  color: yellow;
-  font-size: 140px;
-  position: relative;
-  top: -25px;
+.weather-data {
+  font-size: 15px;
+  padding: 40px 20px 0;
 }
 
 .tempSky {

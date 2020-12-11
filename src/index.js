@@ -40,7 +40,6 @@ function formattedTime() {
 }
 
 function displayWeather(response) {
-  console.log(response);
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#current-temp").innerHTML = Math.round(
     response.data.main.temp
