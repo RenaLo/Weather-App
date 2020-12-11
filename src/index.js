@@ -1,25 +1,72 @@
-//DATE
-let now = new Date();
+function formattedDate(timestamp) {
+  let now = new Date(timestamp);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
 
-let currentDate = document.querySelector("#date");
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[now.getMonth()];
 
-let date = now.getDate();
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-let month = months[now.getMonth()];
+  let date = now.getDate();
+  return `${day}, ${month} ${date}`;
+}
 
+function formattedTime() {
+  let now = new Date();
+  let hours = now.getHours();
+  let minutes = ("0" + now.getMinutes()).substr(-2);
+
+  return `${hours}:${minutes}`;
+}
+
+function displayWeather(response) {
+  console.log(response);
+  document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#current-temp").innerHTML = Math.round(
+    response.data.main.temp
+  );
+  document.querySelector("#real-feel").innerHTML = Math.round(
+    response.data.main.feels_like
+  );
+  document.querySelector("#max-temp").innerHTML = Math.round(
+    response.data.main.temp_max
+  );
+  document.querySelector("#min-temp").innerHTML = Math.round(
+    response.data.main.temp_min
+  );
+  document.querySelector("#sky").innerHTML = response.data.weather[0].main;
+  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+  document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  );
+  document.querySelector("#date").innerHTML = formattedDate(
+    response.data.dt * 1000
+  );
+  document.querySelector("#time").innerHTML = formattedTime(
+    response.data.dt * 1000
+  );
+}
+//FORECAST
 let days = [
   "Sunday",
   "Monday",
@@ -29,8 +76,8 @@ let days = [
   "Friday",
   "Saturday",
 ];
+let now = new Date();
 let day = days[now.getDay()];
-currentDate.innerHTML = `${day}, ${month} ${date}`;
 
 let otherDay1 = document.querySelector("#otherDays-1");
 let nextDay1Start = days[now.getDay() - 6];
@@ -75,15 +122,8 @@ if (day === days[(6, 5, 4, 3, 2)]) {
   otherDay5.innerHTML = `${nextDay5End}`;
 }
 
-//TIME
-let currentTime = document.querySelector(".time");
-
-let hours = now.getHours();
-let minutes = ("0" + now.getMinutes()).substr(-2);
-
-currentTime.innerHTML = `${hours}:${minutes}`;
-
 //
+let hours = now.getHours();
 
 let nextHour1 = document.querySelector("#nextHour-1");
 let nextHour1After = now.getHours() - 21;
@@ -163,30 +203,7 @@ function handleSubmit(event) {
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
-search("Vienna");
-
 //TEMPERATURE
-function displayWeather(response) {
-  console.log(response);
-  document.querySelector("#city").innerHTML = response.data.name;
-  document.querySelector("#current-temp").innerHTML = Math.round(
-    response.data.main.temp
-  );
-  document.querySelector("#real-feel").innerHTML = Math.round(
-    response.data.main.feels_like
-  );
-  document.querySelector("#max-temp").innerHTML = Math.round(
-    response.data.main.temp_max
-  );
-  document.querySelector("#min-temp").innerHTML = Math.round(
-    response.data.main.temp_min
-  );
-  document.querySelector("#sky").innerHTML = response.data.weather[0].main;
-  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-  document.querySelector("#wind").innerHTML = Math.round(
-    response.data.wind.speed
-  );
-}
 
 function showPosition(position) {
   let apiKey = "7230f04fdbd28337f6f727ee7817218c";
@@ -201,3 +218,5 @@ function getCurrentPosition() {
 
 let locationButton = document.querySelector("#location-button");
 locationButton.addEventListener("click", getCurrentPosition);
+
+search("Vienna");

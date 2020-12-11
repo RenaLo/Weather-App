@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="src/styles.css" />
   </head>
 
-  <body>
+  <body style="background-image: url(img/sunset.jpeg)"">
     <div class="container">
       <div class="weather-app">
         <form class="search-engine" id="search-form">
@@ -52,7 +52,7 @@
         <section class="city-weather-overview">
           <div class="row">
             <div class="col-6 date" id="date"></div>
-            <div class="col-6 time"></div>
+            <div class="col-6 time" id="time"></div>
           </div>
 
           <div class="city-name" id="city"></div>
@@ -104,8 +104,6 @@
               <div class="col">4<sup>°C</sup></div>
               <div class="col">9<sup>°C</sup></div>
             </div>
-
-            <img src="img/Temperature curve.png" alt="temperature curve" />
 
             <div class="row">
               <div class="col" id="nextHour-1"></div>

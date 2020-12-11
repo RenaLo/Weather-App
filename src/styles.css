@@ -1,5 +1,6 @@
 body {
-  background-image: linear-gradient(#afd7f1 0%, #72afd3 100%);
+  background-attachment: fixed;
+  background-size: cover;
   font-family: "Playfair Display";
   text-align: center;
   margin: 15px auto;
@@ -20,12 +21,13 @@ ul {
 
 .weather-app {
   margin: auto;
-  max-width: 580px;
+  max-width: 650px;
 }
 
 .search-engine {
   background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-  border: 2px solid #fff;
+  opacity: 0.75;
+  border: 2px solid #273342;
   border-radius: 4px;
   font-size: 20px;
   margin: 8px 10px;
@@ -33,7 +35,7 @@ ul {
 }
 
 .btn-outline-dark {
-  border: 2px solid #fff;
+  border: 2px solid #273342;
   border-radius: 4px;
   font-size: 20px;
   text-align: center;
@@ -48,7 +50,7 @@ ul {
 
 .enter-city {
   background: transparent;
-  border: 4px solid #fff;
+  border: 4px solid #273342;
   border-radius: 4px;
   text-align: center;
   padding: 0 80px;
@@ -56,7 +58,8 @@ ul {
 
 .city-weather-overview {
   background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-  border: 2px solid #fff;
+  opacity: 0.75;
+  border: 2px solid #273342;
   border-radius: 4px;
   text-align: center;
   margin: 8px auto;
@@ -70,7 +73,7 @@ ul {
 }
 
 .date {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   text-align: left;
   position: relative;
@@ -106,12 +109,14 @@ ul {
 
 .weather-forecast {
   margin: 10px auto;
+  opacity: 0.8;
 }
 
 .otherDays {
   background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-  border: 2px solid #fff;
+  border: 2px solid #273342;
   border-radius: 4px;
+  font-weight: 600;
   font-size: 15px;
   margin: 0 10px;
   padding: 0 0 5px;
@@ -123,7 +128,7 @@ ul {
 
 .source-code {
   text-align: left;
-  color: #fff;
+  color: #273342;
   font-size: 15px;
   padding: 0 10px;
 }
