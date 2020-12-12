@@ -76,6 +76,7 @@ function displayWeather(response) {
 }
 
 //FORECAST
+
 let now = new Date();
 let days = [
   "Sunday",
@@ -198,11 +199,19 @@ if (hours >= 5) {
 }
 
 //SEARCH
+function displayForecast(response) {
+  console.log(response.data);
+}
+
 function search(city) {
   let apiKey = "7230f04fdbd28337f6f727ee7817218c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
+
 function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
