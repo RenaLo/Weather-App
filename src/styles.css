@@ -133,3 +133,12 @@ ul {
 .source-code-link {
   color: #fff;
 }
+
+.weather-data .active {
+  color: black;
+  cursor: default;
+}
+
+.weather-data .active:hover {
+  text-decoration: none;
+}

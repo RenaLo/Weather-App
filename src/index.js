@@ -41,8 +41,11 @@ function formattedTime() {
 
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
+
+  celsiusTemperature = response.data.main.temp;
+
   document.querySelector("#current-temp").innerHTML = Math.round(
-    response.data.main.temp
+    celsiusTemperature
   );
   document.querySelector("#real-feel").innerHTML = Math.round(
     response.data.main.feels_like
@@ -236,5 +239,31 @@ function getCurrentPosition() {
 
 let locationButton = document.querySelector("#location-button");
 locationButton.addEventListener("click", getCurrentPosition);
+
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  document.querySelector("#current-temp").innerHTML = Math.round(
+    (celsiusTemperature * 9) / 5 + 32
+  );
+}
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  document.querySelector("#current-temp").innerHTML = Math.round(
+    celsiusTemperature
+  );
+}
+
+let celsiusTemperature = null;
+
+let fahrenheitLink = document.querySelector("#fahrenheit-temp");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius-temp");
+celsiusLink.addEventListener("click", convertToCelsius);
 
 search("Vienna");
