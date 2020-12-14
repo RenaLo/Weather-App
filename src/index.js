@@ -78,132 +78,32 @@ function displayWeather(response) {
     .setAttribute("alt", response.data.weather[0].description);
 }
 
-//FORECAST
+function forecastTime(timestamp) {
+  let now = new Date(timestamp);
+  let hours = ("0" + now.getHours()).substr(-2);
+  let minutes = ("0" + now.getMinutes()).substr(-2);
 
-let now = new Date();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
-
-let otherDay1 = document.querySelector("#otherDays-1");
-let nextDay1Start = days[now.getDay() - 6];
-let nextDay1End = days[now.getDay() + 1];
-if (day === days[6]) {
-  otherDay1.innerHTML = `${nextDay1Start}`;
-} else {
-  otherDay1.innerHTML = `${nextDay1End}`;
+  return `${hours}:${minutes}`;
 }
 
-let nextDay2Start = days[now.getDay() - 5];
-let nextDay2End = days[now.getDay() + 2];
-if (day === days[(6, 5)]) {
-  document.querySelector("#otherDays-2").innerHTML = `${nextDay2Start}`;
-} else {
-  document.querySelector("#otherDays-2").innerHTML = `${nextDay2End}`;
-}
-
-let otherDay3 = document.querySelector("#otherDays-3");
-let nextDay3Start = days[now.getDay() - 4];
-let nextDay3End = days[now.getDay() + 3];
-if (day === days[(6, 5, 4)]) {
-  otherDay3.innerHTML = `${nextDay3Start}`;
-} else {
-  otherDay3.innerHTML = `${nextDay3End}`;
-}
-
-let nextDay4Start = days[now.getDay() - 3];
-let nextDay4End = days[now.getDay() + 4];
-if (day === days[(6, 5, 4, 3)]) {
-  document.querySelector("#otherDays-4").innerHTML = `${nextDay4Start}`;
-} else {
-  document.querySelector("#otherDays-4").innerHTML = `${nextDay4End}`;
-}
-
-let otherDay5 = document.querySelector("#otherDays-5");
-let nextDay5Start = days[now.getDay() - 2];
-let nextDay5End = days[now.getDay() + 5];
-if (day === days[(6, 5, 4, 3, 2)]) {
-  otherDay5.innerHTML = `${nextDay5Start}`;
-} else {
-  otherDay5.innerHTML = `${nextDay5End}`;
-}
-
-//
-let hours = now.getHours();
-
-let nextHour1 = document.querySelector("#nextHour-1");
-let nextHour1After = now.getHours() - 21;
-let nextHour1Before = now.getHours() + 1;
-if (hours === 23) {
-  nextHour1.innerHTML = `${nextHour1After}:00`;
-} else {
-  nextHour1.innerHTML = `${nextHour1Before}:00`;
-}
-
-let nextHour2 = document.querySelector("#nextHour-2");
-let nextHour2After = now.getHours() - 20;
-let nextHour2Before = now.getHours() + 4;
-if (hours >= 20) {
-  nextHour2.innerHTML = `${nextHour2After}:00`;
-} else {
-  nextHour2.innerHTML = `${nextHour2Before}:00`;
-}
-
-let nextHour3 = document.querySelector("#nextHour-3");
-let nextHour3After = now.getHours() - 17;
-let nextHour3Before = now.getHours() + 7;
-if (hours >= 17) {
-  nextHour3.innerHTML = `${nextHour3After}:00`;
-} else {
-  nextHour3.innerHTML = `${nextHour3Before}:00`;
-}
-
-let nextHour4 = document.querySelector("#nextHour-4");
-let nextHour4After = now.getHours() - 14;
-let nextHour4Before = now.getHours() + 10;
-if (hours >= 14) {
-  nextHour4.innerHTML = `${nextHour4After}:00`;
-} else {
-  nextHour4.innerHTML = `${nextHour4Before}:00`;
-}
-
-let nextHour5 = document.querySelector("#nextHour-5");
-let nextHour5After = now.getHours() - 11;
-let nextHour5Before = now.getHours() + 13;
-if (hours >= 11) {
-  nextHour5.innerHTML = `${nextHour5After}:00`;
-} else {
-  nextHour5.innerHTML = `${nextHour5Before}:00`;
-}
-
-let nextHour6 = document.querySelector("#nextHour-6");
-let nextHour6After = now.getHours() - 8;
-let nextHour6Before = now.getHours() + 16;
-if (hours >= 8) {
-  nextHour6.innerHTML = `${nextHour6After}:00`;
-} else {
-  nextHour6.innerHTML = `${nextHour6Before}:00`;
-}
-
-let nextHour7 = document.querySelector("#nextHour-7");
-let nextHour7After = now.getHours() - 5;
-let nextHour7Before = now.getHours() + 19;
-if (hours >= 5) {
-  nextHour7.innerHTML = `${nextHour7After}:00`;
-} else {
-  nextHour7.innerHTML = `${nextHour7Before}:00`;
-}
-
-//SEARCH
 function displayForecast(response) {
-  console.log(response.data);
+  document.querySelector("#temperature-forecast").innerHTML = null;
+  let forecast = null;
+
+  for (let index = 0; index < 6; index++) {
+    forecast = response.data.list[index];
+    document.querySelector("#temperature-forecast").innerHTML += `
+  <div class="col-2">
+  <h6>${Math.round(forecast.main.temp)} <smaller> °C </smaller>
+          </h6>
+          <img src="https://openweathermap.org/img/wn/${
+            forecast.weather[0].icon
+          }@2x.png" alt="${forecast.weather[0].description}" />
+          <div class="time-forecast">
+            ${forecastTime(forecast.dt * 1000)} </div>
+          </div>
+          `;
+  }
 }
 
 function search(city) {
@@ -266,4 +166,61 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 let celsiusLink = document.querySelector("#celsius-temp");
 celsiusLink.addEventListener("click", convertToCelsius);
 
-search("Vienna");
+search("Wien");
+
+//FORECAST
+
+let now = new Date();
+let days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+let day = days[now.getDay()];
+
+let otherDay1 = document.querySelector("#otherDays-1");
+let nextDay1Start = days[now.getDay() - 6];
+let nextDay1End = days[now.getDay() + 1];
+if (day === days[6]) {
+  otherDay1.innerHTML = `${nextDay1Start}`;
+} else {
+  otherDay1.innerHTML = `${nextDay1End}`;
+}
+
+let nextDay2Start = days[now.getDay() - 5];
+let nextDay2End = days[now.getDay() + 2];
+if (day === days[(6, 5)]) {
+  document.querySelector("#otherDays-2").innerHTML = `${nextDay2Start}`;
+} else {
+  document.querySelector("#otherDays-2").innerHTML = `${nextDay2End}`;
+}
+
+let otherDay3 = document.querySelector("#otherDays-3");
+let nextDay3Start = days[now.getDay() - 4];
+let nextDay3End = days[now.getDay() + 3];
+if (day === days[(6, 5, 4)]) {
+  otherDay3.innerHTML = `${nextDay3Start}`;
+} else {
+  otherDay3.innerHTML = `${nextDay3End}`;
+}
+
+let nextDay4Start = days[now.getDay() - 3];
+let nextDay4End = days[now.getDay() + 4];
+if (day === days[(6, 5, 4, 3)]) {
+  document.querySelector("#otherDays-4").innerHTML = `${nextDay4Start}`;
+} else {
+  document.querySelector("#otherDays-4").innerHTML = `${nextDay4End}`;
+}
+
+let otherDay5 = document.querySelector("#otherDays-5");
+let nextDay5Start = days[now.getDay() - 2];
+let nextDay5End = days[now.getDay() + 5];
+if (day === days[(6, 5, 4, 3, 2)]) {
+  otherDay5.innerHTML = `${nextDay5Start}`;
+} else {
+  otherDay5.innerHTML = `${nextDay5End}`;
+}

@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="src/styles.css" />
   </head>
 
-  <body style="background-image: url(img/sunset.jpeg)"">
+  <body style="background-image: url(img/sunset.jpeg)">
     <div class="container">
       <div class="weather-app">
         <form class="search-engine" id="search-form">
@@ -62,13 +62,16 @@
             <div class="col weather-data">
               <ul>
                 <li>
-                  <span  id="max-temp"></span><sup>°C</sup> /
-                  <span  id="min-temp"></span><sup>°C</sup>
+                  <span id="max-temp"></span><sup>°C</sup> /
+                  <span id="min-temp"></span><sup>°C</sup>
                 </li>
                 <li>
                   <h1 class="tempSky">
                     <span id="current-temp"></span
-                    ><sup class="temp-unit"><a href="#" id="celsius-temp" class="active"> °C</a> | <a href="#" id="fahrenheit-temp">°F</a></sup>
+                    ><sup class="temp-unit"
+                      ><a href="#" id="celsius-temp" class="active"> °C</a> |
+                      <a href="#" id="fahrenheit-temp">°F</a></sup
+                    >
                   </h1>
                 </li>
                 <li>Real feel: <span id="real-feel"></span><sup>°C </sup></li>
@@ -76,10 +79,7 @@
             </div>
 
             <div class="col icon">
-              <img src=""
-              alt=""
-              id="weather-icon" />
-              
+              <img src="" alt="" id="weather-icon" />
             </div>
 
             <div class="col weather-data">
@@ -98,27 +98,7 @@
 
           <hr />
 
-          <div class="temperature-profile">
-            <div class="row">
-              <div class="col">7<sup>°C</sup></div>
-              <div class="col">4<sup>°C</sup></div>
-              <div class="col">3<sup>°C</sup></div>
-              <div class="col">3<sup>°C</sup></div>
-              <div class="col">2<sup>°C</sup></div>
-              <div class="col">4<sup>°C</sup></div>
-              <div class="col">9<sup>°C</sup></div>
-            </div>
-
-            <div class="row">
-              <div class="col" id="nextHour-1"></div>
-              <div class="col" id="nextHour-2"></div>
-              <div class="col" id="nextHour-3"></div>
-              <div class="col" id="nextHour-4"></div>
-              <div class="col" id="nextHour-5"></div>
-              <div class="col" id="nextHour-6"></div>
-              <div class="col" id="nextHour-7"></div>
-            </div>
-          </div>
+          <div class="row temperature-profile" id="temperature-forecast"></div>
         </section>
 
         <footer class="weather-forecast">
