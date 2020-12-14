@@ -43,18 +43,21 @@ function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
 
   celsiusTemperature = response.data.main.temp;
+  maxTemperature = response.data.main.temp_max;
+  minTemperature = response.data.main.temp_min;
+  realFeel = response.data.main.feels_like;
 
   document.querySelector("#current-temp").innerHTML = Math.round(
     celsiusTemperature
-  );
-  document.querySelector("#real-feel").innerHTML = Math.round(
-    response.data.main.feels_like
   );
   document.querySelector("#max-temp").innerHTML = Math.round(
     response.data.main.temp_max
   );
   document.querySelector("#min-temp").innerHTML = Math.round(
     response.data.main.temp_min
+  );
+  document.querySelector("#real-feel").innerHTML = Math.round(
+    response.data.main.feels_like
   );
   document.querySelector("#sky").innerHTML = response.data.weather[0].main;
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
@@ -147,6 +150,15 @@ function convertToFahrenheit(event) {
   document.querySelector("#current-temp").innerHTML = Math.round(
     (celsiusTemperature * 9) / 5 + 32
   );
+  document.querySelector("#max-temp").innerHTML = Math.round(
+    (maxTemperature * 9) / 5 + 32
+  );
+  document.querySelector("#min-temp").innerHTML = Math.round(
+    (minTemperature * 9) / 5 + 32
+  );
+  document.querySelector("#real-feel").innerHTML = Math.round(
+    (realFeel * 9) / 5 + 32
+  );
 }
 
 function convertToCelsius(event) {
@@ -156,6 +168,9 @@ function convertToCelsius(event) {
   document.querySelector("#current-temp").innerHTML = Math.round(
     celsiusTemperature
   );
+  document.querySelector("#max-temp").innerHTML = Math.round(maxTemperature);
+  document.querySelector("#min-temp").innerHTML = Math.round(minTemperature);
+  document.querySelector("#real-feel").innerHTML = Math.round(realFeel);
 }
 
 let celsiusTemperature = null;
