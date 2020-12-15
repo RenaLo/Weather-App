@@ -137,6 +137,8 @@ ul {
 .weather-data .active {
   color: black;
   cursor: default;
+  font-size: 20px;
+  font-weight: 900;
 }
 
 .weather-data .active:hover {
