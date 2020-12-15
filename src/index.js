@@ -41,6 +41,7 @@ function formattedTime() {
 
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#city-input").value = response.data.name;
 
   celsiusTemperature = response.data.main.temp;
   maxTemperature = response.data.main.temp_max;
@@ -127,13 +128,14 @@ function handleSubmit(event) {
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
-//TEMPERATURE
-
 function showPosition(position) {
   let apiKey = "7230f04fdbd28337f6f727ee7817218c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?&lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(displayWeather);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function getCurrentPosition() {
@@ -142,6 +144,26 @@ function getCurrentPosition() {
 
 let locationButton = document.querySelector("#location-button");
 locationButton.addEventListener("click", getCurrentPosition);
+
+function displayForecastFahrenheit(response) {
+  document.querySelector("#temperature-forecast").innerHTML = null;
+  let forecast = null;
+
+  for (let index = 0; index < 6; index++) {
+    forecast = response.data.list[index];
+    document.querySelector("#temperature-forecast").innerHTML += `
+  <div class="col-2">
+  <h6>${Math.round(forecast.main.temp)} <smaller> °F </smaller>
+          </h6>
+          <img src="https://openweathermap.org/img/wn/${
+            forecast.weather[0].icon
+          }@2x.png" alt="${forecast.weather[0].description}" />
+          <div class="time-forecast">
+            ${forecastTime(forecast.dt * 1000)} </div>
+          </div>
+          `;
+  }
+}
 
 function convertToFahrenheit(event) {
   event.preventDefault();
@@ -159,6 +181,13 @@ function convertToFahrenheit(event) {
   document.querySelector("#real-feel").innerHTML = Math.round(
     (realFeel * 9) / 5 + 32
   );
+
+  let apiKey = "7230f04fdbd28337f6f727ee7817218c";
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${
+    document.querySelector("#city-input").value
+  }&appid=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayForecastFahrenheit);
 }
 
 function convertToCelsius(event) {
@@ -171,6 +200,8 @@ function convertToCelsius(event) {
   document.querySelector("#max-temp").innerHTML = Math.round(maxTemperature);
   document.querySelector("#min-temp").innerHTML = Math.round(minTemperature);
   document.querySelector("#real-feel").innerHTML = Math.round(realFeel);
+
+  handleSubmit(event);
 }
 
 let celsiusTemperature = null;
@@ -181,7 +212,7 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 let celsiusLink = document.querySelector("#celsius-temp");
 celsiusLink.addEventListener("click", convertToCelsius);
 
-search("Wien");
+search("Rome");
 
 //FORECAST
 
