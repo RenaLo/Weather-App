@@ -1,7 +1,9 @@
 body {
   background-attachment: fixed;
   background-size: cover;
+  color: 273342;
   font-family: "Playfair Display";
+  font-weight: bolder;
   text-align: center;
   margin: 15px auto;
 }
@@ -45,7 +47,7 @@ ul {
 }
 
 .btn-outline-dark:hover {
-  background-color: #f7c88c;
+  background-color: #386197;
 }
 
 .enter-city {
@@ -67,7 +69,7 @@ ul {
 }
 
 .city-name {
-  font-size: 70px;
+  font-size: 75px;
   font-weight: bolder;
   line-height: 1;
 }
@@ -92,7 +94,8 @@ ul {
 }
 
 .weather-data {
-  font-size: 15px;
+  font-size: 18px;
+  line-height: 2;
   padding: 40px 20px 0;
 }
 
@@ -101,7 +104,10 @@ ul {
 }
 
 .temperature-profile {
-  padding: 0 20px;
+  border-top: 1.5px ridge #273342;
+  line-height: 0;
+  padding-top: 25px;
+  margin: 20px 0;
 }
 
 .weather-forecast {
@@ -135,7 +141,7 @@ ul {
 }
 
 .weather-data .active {
-  color: black;
+  color: #273342;
   cursor: default;
   font-size: 20px;
   font-weight: 900;

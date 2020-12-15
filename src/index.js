@@ -98,8 +98,8 @@ function displayForecast(response) {
     forecast = response.data.list[index];
     document.querySelector("#temperature-forecast").innerHTML += `
   <div class="col-2">
-  <h6>${Math.round(forecast.main.temp)} <smaller> °C </smaller>
-          </h6>
+  <div><strong>${Math.round(forecast.main.temp)}</strong>  °C 
+          </div>
           <img src="https://openweathermap.org/img/wn/${
             forecast.weather[0].icon
           }@2x.png" alt="${forecast.weather[0].description}" />
