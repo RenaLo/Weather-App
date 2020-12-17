@@ -8,7 +8,7 @@ body {
   margin: 15px auto;
 }
 
-img {
+body img {
   display: block;
   margin: 0 auto;
   width: 100%;
@@ -106,23 +106,22 @@ ul {
 .temperature-profile {
   border-top: 1.5px ridge #273342;
   line-height: 0;
-  padding-top: 25px;
+  padding-top: 20px;
   margin: 20px 0;
 }
-
-.weather-forecast {
-  margin: 10px auto;
-  opacity: 0.8;
+.daily-weather-forecast {
+  margin: 0 auto;
+  height: 60%;
 }
 
-.otherDays {
+.daily-forecast {
   background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
   border: 2px solid #273342;
   border-radius: 4px;
-  font-weight: 600;
-  font-size: 15px;
-  margin: 0 10px;
-  padding: 0 0 5px;
+  line-height: 0.8;
+  padding: 20px;
+  margin: 10px;
+  opacity: 0.8;
 }
 
 .temp-unit {

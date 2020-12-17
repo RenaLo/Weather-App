@@ -103,8 +103,28 @@ function displayForecast(response) {
           <img src="https://openweathermap.org/img/wn/${
             forecast.weather[0].icon
           }@2x.png" alt="${forecast.weather[0].description}" />
-          <div class="time-forecast">
+          <div >
             ${forecastTime(forecast.dt * 1000)} </div>
+          </div>
+          `;
+  }
+}
+
+function displayDailyForecast(response) {
+  document.querySelector("#daily-forecast").innerHTML = null;
+  let forecast = null;
+
+  for (let i = 7; i < response.data.list.length; i += 8) {
+    forecast = response.data.list[i];
+    document.querySelector("#daily-forecast").innerHTML += `
+  <div class="col">
+  <div><strong>   ${Math.round(forecast.main.temp)}</strong>  °C 
+          </div>
+          <img src="https://openweathermap.org/img/wn/${
+            forecast.weather[0].icon
+          }@2x.png" alt="${forecast.weather[0].description}"   />
+          <div >
+               ${forecast.dt_txt} </div>
           </div>
           `;
   }
@@ -117,6 +137,7 @@ function search(city) {
 
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayDailyForecast);
 }
 
 function handleSubmit(event) {
@@ -213,60 +234,3 @@ let celsiusLink = document.querySelector("#celsius-temp");
 celsiusLink.addEventListener("click", convertToCelsius);
 
 search("Rome");
-
-//FORECAST
-
-let now = new Date();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
-
-let otherDay1 = document.querySelector("#otherDays-1");
-let nextDay1Start = days[now.getDay() - 6];
-let nextDay1End = days[now.getDay() + 1];
-if (day === days[6]) {
-  otherDay1.innerHTML = `${nextDay1Start}`;
-} else {
-  otherDay1.innerHTML = `${nextDay1End}`;
-}
-
-let nextDay2Start = days[now.getDay() - 5];
-let nextDay2End = days[now.getDay() + 2];
-if (day === days[(6, 5)]) {
-  document.querySelector("#otherDays-2").innerHTML = `${nextDay2Start}`;
-} else {
-  document.querySelector("#otherDays-2").innerHTML = `${nextDay2End}`;
-}
-
-let otherDay3 = document.querySelector("#otherDays-3");
-let nextDay3Start = days[now.getDay() - 4];
-let nextDay3End = days[now.getDay() + 3];
-if (day === days[(6, 5, 4)]) {
-  otherDay3.innerHTML = `${nextDay3Start}`;
-} else {
-  otherDay3.innerHTML = `${nextDay3End}`;
-}
-
-let nextDay4Start = days[now.getDay() - 3];
-let nextDay4End = days[now.getDay() + 4];
-if (day === days[(6, 5, 4, 3)]) {
-  document.querySelector("#otherDays-4").innerHTML = `${nextDay4Start}`;
-} else {
-  document.querySelector("#otherDays-4").innerHTML = `${nextDay4End}`;
-}
-
-let otherDay5 = document.querySelector("#otherDays-5");
-let nextDay5Start = days[now.getDay() - 2];
-let nextDay5End = days[now.getDay() + 5];
-if (day === days[(6, 5, 4, 3, 2)]) {
-  otherDay5.innerHTML = `${nextDay5Start}`;
-} else {
-  otherDay5.innerHTML = `${nextDay5End}`;
-}
