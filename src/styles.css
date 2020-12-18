@@ -112,9 +112,7 @@ ul {
 .daily-weather-forecast {
   margin: 0 auto;
   height: 60%;
-}
 
-.daily-forecast {
   background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
   border: 2px solid #273342;
   border-radius: 4px;

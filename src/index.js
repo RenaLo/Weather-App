@@ -28,6 +28,7 @@ function formattedDate(timestamp) {
   let month = months[now.getMonth()];
 
   let date = now.getDate();
+
   return `${day}, ${month} ${date}`;
 }
 
@@ -114,19 +115,15 @@ function displayDailyForecast(response) {
   document.querySelector("#daily-forecast").innerHTML = null;
   let forecast = null;
 
-  for (let i = 7; i < response.data.list.length; i += 8) {
-    forecast = response.data.list[i];
+  for (let index = 7; index < response.data.list.length; index += 8) {
+    forecast = response.data.list[index];
     document.querySelector("#daily-forecast").innerHTML += `
   <div class="col">
   <div><strong>   ${Math.round(forecast.main.temp)}</strong>  °C 
-          </div>
-          <img src="https://openweathermap.org/img/wn/${
-            forecast.weather[0].icon
-          }@2x.png" alt="${forecast.weather[0].description}"   />
-          <div >
-               ${forecast.dt_txt} </div>
-          </div>
-          `;
+  </div>
+  <img src="https://openweathermap.org/img/wn/${
+    forecast.weather[0].icon
+  }@2x.png" alt="${forecast.weather[0].description}"   />`;
   }
 }
 
@@ -134,6 +131,7 @@ function search(city) {
   let apiKey = "7230f04fdbd28337f6f727ee7817218c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
+  axios.get(apiUrl).then(displayForecastWeekdays);
 
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
@@ -188,8 +186,8 @@ function displayForecastFahrenheit(response) {
           `;
   }
 
-  for (let i = 7; i < response.data.list.length; i += 8) {
-    forecast = response.data.list[i];
+  for (let index = 7; index < response.data.list.length; index += 8) {
+    forecast = response.data.list[index];
     document.querySelector("#daily-forecast").innerHTML += `
   <div class="col">
   <div><strong>   ${Math.round(forecast.main.temp)}</strong>  °F 
@@ -197,8 +195,6 @@ function displayForecastFahrenheit(response) {
           <img src="https://openweathermap.org/img/wn/${
             forecast.weather[0].icon
           }@2x.png" alt="${forecast.weather[0].description}"   />
-          <div >
-               ${forecast.dt_txt} </div>
           </div>
           `;
   }
@@ -252,3 +248,30 @@ let celsiusLink = document.querySelector("#celsius-temp");
 celsiusLink.addEventListener("click", convertToCelsius);
 
 search("Rome");
+
+function displayForecastWeekdays(response) {
+  document.querySelector("#next-day").innerHTML = null;
+  let loop = null;
+  let now = new Date();
+
+  let weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let day = now.getDay() + 1;
+  let numberDays = 4;
+
+  for (let index = day; index <= day + numberDays; index++) {
+    let loop = index;
+    loop = loop % weekdays.length;
+
+    document.querySelector("#next-day").innerHTML += `<div class="col">
+  <div><strong>   ${weekdays[loop]}</strong></div></div>`;
+  }
+}
