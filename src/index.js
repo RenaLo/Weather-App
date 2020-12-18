@@ -168,19 +168,37 @@ locationButton.addEventListener("click", getCurrentPosition);
 
 function displayForecastFahrenheit(response) {
   document.querySelector("#temperature-forecast").innerHTML = null;
+  document.querySelector("#daily-forecast").innerHTML = null;
   let forecast = null;
 
   for (let index = 0; index < 6; index++) {
     forecast = response.data.list[index];
     document.querySelector("#temperature-forecast").innerHTML += `
   <div class="col-2">
-  <h6>${Math.round(forecast.main.temp)} <smaller> °F </smaller>
-          </h6>
+  <div><strong>${Math.round(
+    forecast.main.temp
+  )} <smaller> °F </smaller></strong>
+          </div>
           <img src="https://openweathermap.org/img/wn/${
             forecast.weather[0].icon
           }@2x.png" alt="${forecast.weather[0].description}" />
           <div class="time-forecast">
             ${forecastTime(forecast.dt * 1000)} </div>
+          </div>
+          `;
+  }
+
+  for (let i = 7; i < response.data.list.length; i += 8) {
+    forecast = response.data.list[i];
+    document.querySelector("#daily-forecast").innerHTML += `
+  <div class="col">
+  <div><strong>   ${Math.round(forecast.main.temp)}</strong>  °F 
+          </div>
+          <img src="https://openweathermap.org/img/wn/${
+            forecast.weather[0].icon
+          }@2x.png" alt="${forecast.weather[0].description}"   />
+          <div >
+               ${forecast.dt_txt} </div>
           </div>
           `;
   }
