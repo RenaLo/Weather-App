@@ -81,6 +81,9 @@ function displayWeather(response) {
   document
     .querySelector("#weather-icon")
     .setAttribute("alt", response.data.weather[0].description);
+
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
 }
 
 function forecastTime(timestamp) {
@@ -155,6 +158,7 @@ function showPosition(position) {
 
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayDailyForecast);
 }
 
 function getCurrentPosition() {
@@ -247,8 +251,6 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 let celsiusLink = document.querySelector("#celsius-temp");
 celsiusLink.addEventListener("click", convertToCelsius);
 
-search("Rome");
-
 function displayForecastWeekdays(response) {
   document.querySelector("#next-day").innerHTML = null;
   let loop = null;
@@ -275,3 +277,5 @@ function displayForecastWeekdays(response) {
   <div><strong>   ${weekdays[loop]}</strong></div></div>`;
   }
 }
+
+search("Wien");
